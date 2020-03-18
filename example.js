@@ -8,8 +8,8 @@ bot.use(mediaGroup())
 
 bot.on('media_group', async (ctx) => {
   let i = 0
-  for (const $ctx of ctx.mediaGroup) {
-    await $ctx.reply(`hi! ${i}`, {reply_to_message_id: $ctx.message.message_id})
+  for (const message of ctx.mediaGroup) {
+    await ctx.reply(`hi! ${i}`, {reply_to_message_id: message.message_id})
     i += 1
   }
   return ctx.reply(`total: ${ctx.mediaGroup.length}`)

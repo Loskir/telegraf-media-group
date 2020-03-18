@@ -14,13 +14,13 @@ module.exports = (timeout = 100) => Composer.mount('message', (ctx, next) => {
   if (!userMap.get(ctx.message.media_group_id)) {
     userMap.set(ctx.message.media_group_id, {
       resolve: () => {},
-      contexts: []
+      messages: []
     })
   }
   const mediaGroupOptions = userMap.get(ctx.message.media_group_id)
 
   mediaGroupOptions.resolve(false)
-  mediaGroupOptions.contexts.push(ctx)
+  mediaGroupOptions.messages.push(ctx.message)
 
   return new Promise((resolve) => {
     mediaGroupOptions.resolve = resolve
@@ -28,7 +28,7 @@ module.exports = (timeout = 100) => Composer.mount('message', (ctx, next) => {
   })
     .then((value) => {
       if (value === true) {
-        ctx.mediaGroup = mediaGroupOptions.contexts
+        ctx.mediaGroup = mediaGroupOptions.messages
         ctx.updateSubTypes.push('media_group')
         userMap.delete(ctx.message.media_group_id)
         if (userMap.size === 0) {
