@@ -1,0 +1,11 @@
+{
+  "name": "telegraf-media-group",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Loskir/telegraf-media-group.git",
+  "author": "Loskir",
+  "license": "MIT",
+  "dependencies": {
+    "telegraf": "^3.36.0"
+  }
+}
