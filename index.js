@@ -8,10 +8,10 @@ module.exports = (timeout = 100) => Composer.mount(['photo', 'video'], (ctx, nex
     return next()
   }
 
-  if (!map.get(ctx.from.id)) {
-    map.set(ctx.from.id, new Map())
+  if (!map.get(ctx.chat.id)) {
+    map.set(ctx.chat.id, new Map())
   }
-  const userMap = map.get(ctx.from.id)
+  const userMap = map.get(ctx.chat.id)
   if (!userMap.get(message.media_group_id)) {
     userMap.set(message.media_group_id, {
       resolve: () => {},
@@ -33,7 +33,7 @@ module.exports = (timeout = 100) => Composer.mount(['photo', 'video'], (ctx, nex
         ctx.updateSubTypes.push('media_group')
         userMap.delete(message.media_group_id)
         if (userMap.size === 0) {
-          map.delete(ctx.from.id)
+          map.delete(ctx.chat.id)
         }
         return next()
       }
