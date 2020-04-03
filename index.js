@@ -2,8 +2,9 @@ const {Composer} = require('telegraf')
 
 const map = new Map()
 
-module.exports = (timeout = 100) => Composer.mount('message', (ctx, next) => {
-  if (!ctx.message.media_group_id) {
+module.exports = (timeout = 100) => Composer.mount(['photo', 'video'], (ctx, next) => {
+  const message = ctx.message || ctx.channelPost
+  if (!message.media_group_id) {
     return next()
   }
 
@@ -11,16 +12,16 @@ module.exports = (timeout = 100) => Composer.mount('message', (ctx, next) => {
     map.set(ctx.from.id, new Map())
   }
   const userMap = map.get(ctx.from.id)
-  if (!userMap.get(ctx.message.media_group_id)) {
-    userMap.set(ctx.message.media_group_id, {
+  if (!userMap.get(message.media_group_id)) {
+    userMap.set(message.media_group_id, {
       resolve: () => {},
       messages: []
     })
   }
-  const mediaGroupOptions = userMap.get(ctx.message.media_group_id)
+  const mediaGroupOptions = userMap.get(message.media_group_id)
 
   mediaGroupOptions.resolve(false)
-  mediaGroupOptions.messages.push(ctx.message)
+  mediaGroupOptions.messages.push(message)
 
   return new Promise((resolve) => {
     mediaGroupOptions.resolve = resolve
@@ -30,7 +31,7 @@ module.exports = (timeout = 100) => Composer.mount('message', (ctx, next) => {
       if (value === true) {
         ctx.mediaGroup = mediaGroupOptions.messages
         ctx.updateSubTypes.push('media_group')
-        userMap.delete(ctx.message.media_group_id)
+        userMap.delete(message.media_group_id)
         if (userMap.size === 0) {
           map.delete(ctx.from.id)
         }
