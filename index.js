@@ -30,7 +30,9 @@ module.exports = (timeout = 100) => Composer.mount(['photo', 'video'], (ctx, nex
     .then((value) => {
       if (value === true) {
         ctx.mediaGroup = mediaGroupOptions.messages.slice().sort((a, b) => a.message_id - b.message_id)
-        ctx.updateSubTypes.push('media_group')
+        if('updateSubTypes' in ctx) {
+          ctx.updateSubTypes.push('media_group')
+        }
         userMap.delete(message.media_group_id)
         if (userMap.size === 0) {
           map.delete(ctx.chat.id)
