@@ -25,7 +25,7 @@ bot.on('media_group', (ctx) => {
 ## Telegraf v4
 ```js
 const { Telegraf } = require('telegraf')
-const mediaGroup = require('.')
+const mediaGroup = require('telegraf-media-group')
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
