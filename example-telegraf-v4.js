@@ -6,7 +6,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN)
 
 bot.use(mediaGroup())
 
-bot.on('message', async (ctx) => {
+bot.on('media_group', async (ctx) => {
   let i = 0
   for (const message of ctx.mediaGroup) {
     await ctx.reply(`hi! ${i}`, {reply_to_message_id: message.message_id})

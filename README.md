@@ -31,7 +31,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN)
 
 bot.use(mediaGroup())
 
-bot.on('message', async (ctx) => {
+bot.on('media_group', async (ctx) => {
   // ctx.mediaGroup — an array of album messages (including the last one)
   for (const message of ctx.mediaGroup) {
     console.log(message)

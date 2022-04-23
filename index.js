@@ -32,6 +32,8 @@ module.exports = (timeout = 100) => Composer.mount(['photo', 'video'], (ctx, nex
         ctx.mediaGroup = mediaGroupOptions.messages.slice().sort((a, b) => a.message_id - b.message_id)
         if('updateSubTypes' in ctx) {
           ctx.updateSubTypes.push('media_group')
+        } else {
+          ctx.media_group = ctx.update.media_group = ctx.update
         }
         userMap.delete(message.media_group_id)
         if (userMap.size === 0) {
