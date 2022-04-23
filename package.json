@@ -6,6 +6,6 @@
   "author": "Loskir",
   "license": "MIT",
   "dependencies": {
-    "telegraf": "^3.36.0"
+    "telegraf": ">= 3.36.0"
   }
 }
