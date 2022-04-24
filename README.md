@@ -4,7 +4,7 @@ Handle media groups (aka albums) easily with [telegraf](https://telegraf.js.org)
 
 ## Usage
 
-## Telegraf v3/v4
+### Telegraf v3/v4
 ```js
 const Telegraf = require('telegraf')
 const mediaGroup = require('telegraf-media-group')
