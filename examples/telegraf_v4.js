@@ -1,6 +1,5 @@
-const Telegraf = require('telegraf')
-
-const mediaGroup = require('.')
+const { Telegraf } = require('telegraf')
+const mediaGroup = require('telegraf-media-group')
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
@@ -15,4 +14,4 @@ bot.on('media_group', async (ctx) => {
   return ctx.reply(`total: ${ctx.mediaGroup.length}`)
 })
 
-bot.startPolling()
+bot.launch()
